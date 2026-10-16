@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Portal | Study Hub</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            width: 100%;
+            padding: 15px;
+            background-color: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        input[type="text"] {
+            width: 50%;
+            padding: 10px 15px;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            background-color: #0f172a;
+            color: #fff;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        #frame-container {
+            flex-grow: 1;
+            width: 100%;
+            background-color: #fff;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span style="font-weight: bold; color: #3b82f6;">STUDY SEARCH:</span>
+        <input type="text" id="url-input" placeholder="Enter proxy URL or site (e.g., https://...)">
+        <button onclick="launchProxy()">Launch</button>
+    </header>
+
+    <div id="frame-container">
+        <!-- Default page inside the proxy frame -->
+        <iframe id="proxy-frame" src="about:blank"></iframe>
+    </div>
+
+    <script>
+        function launchProxy() {
+            let input = document.getElementById('url-input').value.trim();
+            if (!input) return;
+            
+            // Format URL automatically if user skips protocol
+            if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                input = 'https://' + input;
+            }
+            
+            // Point the internal frame to a reliable public backend proxy mirror
+            // Change this URL whenever your primary proxy backend gets blocked
+            const backendProxy = "https://amazonaws.com";
+            
+            document.getElementById('proxy-frame').src = backendProxy + encodeURIComponent(input);
+        }
+    </script>
+</body>
+</html>
